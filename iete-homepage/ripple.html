@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wavy Circles with Image</title>
+    <style>
+        body { margin: 0; overflow: hidden; }
+        canvas { display: block; }
+    </style>
+</head>
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+    <script>
+        let circles = []; // Array to store multiple wavy circles
+        let img; // Image variable
+
+        function preload() {
+            img = loadImage('https://via.placeholder.com/150'); // Placeholder image, replace with your own
+        }
+
+        function setup() {
+            createCanvas(windowWidth, windowHeight);
+            noFill();
+
+            // Initialize circles with smaller amplitude and different speeds
+            for (let i = 0; i < 5; i++) {
+                circles.push(new WavyCircle(random(150, 300), random(5, 15), random(0.02, 0.05), random(4, 8), random(1, 3)));
+            }
+        }
+
+        function draw() {
+            background(0); // Black background for glowing effect
+
+            // Display the image at the center
+            imageMode(CENTER);
+            image(img, width / 2, height / 2, 150, 150); // Adjust the image size and position as needed
+
+            // Translate to center of the canvas for the ripple effect
+            translate(width / 2, height / 2);
+
+            // Loop through all circles and display them
+            for (let circle of circles) {
+                circle.update();
+                circle.display();
+            }
+        }
+
+        // WavyCircle class for creating multiple dynamic wavy circles
+        class WavyCircle {
+            constructor(radius, waveAmplitude, speed, waveFrequency, lineThickness) {
+                this.radius = radius;        // Base radius of the circle
+                this.waveAmplitude = waveAmplitude;  // Amplitude of the waviness (now smaller for subtle effect)
+                this.speed = speed;          // Different speed for each circle
+                this.waveFrequency = waveFrequency;  // Frequency of the wave (number of waves in the circle)
+                this.lineThickness = lineThickness;  // Thickness of the stroke
+                this.angleOffset = 0;        // Angle offset for animation
+                this.waveDetail = 150;       // Number of points in the wave circle
+            }
+
+            // Update the circle's animation over time
+            update() {
+                this.angleOffset += this.speed; // Animate the wave over time with varying speeds
+            }
+
+            // Display the circle with its wavy effect
+            display() {
+                stroke(0, 255, 255, 100 + 155 * sin(this.angleOffset * 0.05)); // Dynamic glow based on sine wave
+                strokeWeight(this.lineThickness); // Line thickness
+
+                beginShape(); // Start drawing the wavy circle
+                for (let i = 0; i < TWO_PI; i += TWO_PI / this.waveDetail) {
+                    // Calculate the radius with smaller wave amplitude
+                    let wave = this.waveAmplitude * sin(i * this.waveFrequency + this.angleOffset);
+                    let x = (this.radius + wave) * cos(i); // X-coordinate
+                    let y = (this.radius + wave) * sin(i); // Y-coordinate
+                    vertex(x, y); // Draw vertex at calculated position
+                }
+                endShape(CLOSE); // Close the circular shape
+            }
+        }
+
+        // Adjust the canvas size if the window is resized
+        function windowResized() {
+            resizeCanvas(windowWidth, windowHeight);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,72 @@
+/* Basic styles for body */
+body {
+    padding: 0;
+    margin: 0;
+    background: linear-gradient(0deg, #000f1e, #001e3d, #158bcb, #001e3d, #000f1e);
+    background-repeat: no-repeat;
+    height: 100vh; /* Changed to 100vh for full viewport height */
+    color: red;
+    font-family: 'Audiowide';
+}
+
+/* Styles for the tenure navigation row */
+.tenure-nav-row {
+    display: block;
+}
+
+/* Styles for the tenure select button */
+.tenure-select {
+    width: 150px;
+    margin: 20px 20px 20px auto;
+    display: block;
+    position: relative; /* Relative positioning for dropdown */
+}
+
+/* Styles for the tenure button */
+.tenure-select button {
+    width: 100%;
+    height: 40px;
+    text-align: center;
+    font-family: 'Audiowide';
+}
+
+/* Styles for the tenure dropdown */
+.tenure-dropdown {
+    display: none; /* Hidden by default */
+    background-color: aliceblue;
+    border: 2px solid aqua;
+    position: absolute; /* Absolute positioning for dropdown */
+    top: 100%; /* Position just below the button */
+    left: 0; /* Align to the left */
+    z-index: 10; /* Ensure dropdown appears above other content */
+}
+
+/* Show dropdown on hover */
+.tenure-select:hover .tenure-dropdown {
+    display: block;
+}
+
+/* Styles for dropdown links */
+.tenure-dropdown a {
+    display: block; /* Block display for links */
+    padding: 8px 0px; /* Vertical padding for links */
+    text-align: center;
+    text-decoration: none; /* No underline on links */
+    color: black; /* Link text color */
+}
+
+/* Styles for the title box */
+.title-box {
+    color: transparent;
+    font-size: 4rem;
+    -webkit-text-stroke: 2px white;
+    text-align: center;
+    transition: 1s;
+    margin-top: 10vh;
+}
+
+/* Title box hover effect */
+.title-box:hover {
+    color: white;
+    font-size: 5rem;
+}
